@@ -6,7 +6,7 @@ const STORE = [
   {
     index: 0, 
     button:'Start Quiz!', 
-    heading:'<h1>Are you ready to answer some questions about coding?</h1>', 
+    heading:'Are you ready to answer some questions about coding?', 
     content:''
 },
 
@@ -14,7 +14,7 @@ const STORE = [
     index: 1, 
     name: 'acronymHTML',
     button:'Submit', 
-    heading:'<h2>What does HTML stand for?</h2>', 
+    heading:'What does HTML stand for?', 
     content:[
       {
         index:0, 
@@ -45,7 +45,7 @@ const STORE = [
     index: 2, 
     name: 'exampleProceedural',
     button:'Next', 
-    heading:'<h2>What is an example of Proceedural programming?</h2>', 
+    heading:'What is an example of Proceedural programming?', 
     content: [
       {
         index:0, 
@@ -74,7 +74,7 @@ const STORE = [
     index: 3, 
     name: 'whatIsJQuery',
     button:'Next', 
-    heading:'<h2>What is jQuery?</h2>', 
+    heading:'What is jQuery?', 
     content:[
       {
         index:0, 
@@ -102,7 +102,7 @@ const STORE = [
     index: 4, 
     name: 'acronymOOP',
     button:'Next', 
-    heading:'<h2>What is OOP?</h2>', 
+    heading:'What is OOP?', 
     content: [
       {
         index:0, 
@@ -130,7 +130,7 @@ const STORE = [
     index: 5, 
     name: 'webLanguage',
     button:'Next', 
-    heading:'<h2>What is the primary programming language used for web development?</h2>', 
+    heading:'What is the primary programming language used for web development?', 
     content:[
       {
         index:0, 
@@ -157,8 +157,10 @@ const STORE = [
   {
     index: 6, 
     button:'Play Again?', 
-    heading:'<h1>Your Score is </h1>', 
+    heading:'Your Score is:', 
     content:'Hello'
+    //this is where we should store the object that counts right
+    //answers???
   }
 ]
 

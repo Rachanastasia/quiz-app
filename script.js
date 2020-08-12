@@ -20,29 +20,28 @@ function renderQuiz() {
 //generates html to render
 function generateHTML(){
     let currentButton = STORE[i].button;
-    let currentHeader = STORE[i].heading;
+    let currentHeader = createHeader(STORE[i].heading);
     let currentContent = createContent(STORE[i].content);
 
     let renderedHTML = 
     `<div class="header">${currentHeader}</div>
     <div class="content">${currentContent}</div>
     <div class="button"><button type="button">${currentButton}</button></div>
-    <div class="footer"></div>`
-
-    $('main').html(renderedHTML);
-
+    <div class="footer"></div>`;
 //footer should contain 
 //question x/5
 //current score
+    $('main').html(renderedHTML);
 
 }
 
 function createHeader(){
-    //add heading tags based on logic
-    if(i = 0 || 6){
-//header is given h1 tags
-    } else{
-//header is given h2 tags
+    //THIS IS NOT WORKING!!!!!!!!!!!!
+    let current = STORE[i];
+    if(current.index !== 0 || 6){
+        return `<h2>${current.heading}</h2>`;
+    } else {
+        return `<h1>${current.heading}</h1>`;
     }
 }
 
@@ -56,7 +55,7 @@ function createContent() {
     } else if (typeof current === 'string'){
         return `<h3>${current}</h3>`;
 
-    } else if (typeof current === 'array'){
+    } else if (typeof current === 'object'){
         
         return buildQuiz(current);
     }
@@ -67,7 +66,11 @@ function buildQuiz(){
 let currentQuestion = STORE[i].content.map(function(obj){
     return buildRadioBtn(obj);
 });
-return `<form>${currentQuestion}</form>`;
+
+let currentString = currentQuestion.join('');
+
+//must remove commas and make into string 
+return `<form>${currentString}</form>`;
 
 }
 
@@ -99,20 +102,12 @@ function createRadio(index, answer, value){
 
 //TO DO
 
-//set width for header and content with fixed vw height and vh width
-//because this will help scale content in quiz 
-
 //create variable for SCORE at $(.currentScore)
 //figure out how to track and use this data
 
-//make functions that add <button> and formats content
-
-//set state of button with ! to be able to press again
-
-//change formatted answers to objects run through a function
-
 //research feilds for RADIO BUTTONS!!!
 //add REQUIRED for radio buttons
+
 //remove html elements from html
 //create html areas for this
 
@@ -124,6 +119,10 @@ function createRadio(index, answer, value){
 //WE NEED TO FIGURE OUT HOW TO COMMUNICATE WITH RADIO BUTTONS
 //FIND OUT IF 
 
+//MAKE OBJECT FOR CORRECT AND INCORRECT PAGE
+//CREATE THAT FUNCTION THAT PULLS OBJECT AND INPUTS TEXT
+//BASED ON WETHER ANSWER WAS TRUE OR FALSE
+//EACH TIME
 
 
 
