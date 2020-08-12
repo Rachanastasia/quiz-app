@@ -2,50 +2,49 @@
 
 let i = 0;
 
+//moves the iterator with event handler to each slide
+//returns generated html from page
 function renderQuiz() {
-    //on click we want to run this function
-    //how to render on page load too?
     i++;
-    if (i >= 6){
+    if (i > 6){
         i=0;
         }
     
-    return generateHTML();
-
-    
+    return generateHTML(); 
 }
+
+
+
+//gets button and header and content data
+//calls createButton() & createContent
+//generates html to render
 function generateHTML(){
-    //gets button and header and content data
-    //calls createButton() & createContent
-    //generates html to render
-    let currentButton = createButton(STORE[i].button);
+    let currentButton = STORE[i].button;
     let currentHeader = STORE[i].heading;
     let currentContent = createContent(STORE[i].content);
 
     let renderedHTML = 
     `<div class="header">${currentHeader}</div>
     <div class="content">${currentContent}</div>
-    <div class="button">${currentButton}</div>
-    <div class="footer"> 
-    </div>`
+    <div class="button"><button type="button">${currentButton}</button></div>
+    <div class="footer"></div>`
 
     $('main').html(renderedHTML);
 
 //footer should contain 
+//question x/5
+//current score
 
 }
 
-//create items
-//render html
-//render items
-
-//give STORE[i].button html formatting to become a button 
-function createButton() {
-    let buttonReady = `<button type="button">${STORE[i].button}</button>`;
-    return buttonReady;
-
+function createHeader(){
+    //add heading tags based on logic
+    if(i = 0 || 6){
+//header is given h1 tags
+    } else{
+//header is given h2 tags
+    }
 }
-
 
 
 //give STORE[i].content html formatting to become valid content
@@ -53,42 +52,34 @@ function createContent() {
     let current = STORE[i].content;
     if (current === ''){
         return current;
-    //will this confuse the system or does it successfully
-    //weed out the empty strings???
+
     } else if (typeof current === 'string'){
         return `<h3>${current}</h3>`;
-    } else if (typeof current === 'array'){
-       return buildQuiz(current);
 
+    } else if (typeof current === 'array'){
+        
+        return buildQuiz(current);
     }
 
 }
 
 function buildQuiz(){
-//SHOULD THIS INCLUDE THE FACTORY FUNCTION AT LINE ~83???
-//this function loops through content array
-//and retrieves each object value
-//then sends each through buildQuizRadio
+let currentQuestion = STORE[i].content.map(function(obj){
+    return buildRadioBtn(obj);
+});
+return `<form>${currentQuestion}</form>`;
 
-buildQuizRadio();
 }
 
 
-function buildQuizRadio(){
-    //forEach STORE[x].content
-    //access element in content array
+function buildRadioBtn(obj){
     return `<div class="answer">
-    <input type="radio" name="${STORE[i].name}" value="${STORE[i].content[i].value}">
-    <label for="WHAT SHOULD I PUT HERE">${STORE[i].content[i].answer}</label><br>
-</div>`
+    <input type="radio" name="${STORE[i].name}" value="${obj.value}">
+    <label for="WHAT SHOULD I PUT HERE">${obj.answer}</label><br>
+    </div>`;
 }
 
 
-
-
-//FACTORY FUNCTION
-//if I want to use this in the database, do I have to move the 
-//factory to store.js?
 
 function createRadio(index, answer, value){
     return {
