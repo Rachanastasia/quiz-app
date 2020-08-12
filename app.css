@@ -21,6 +21,7 @@ body{
     margin: 0;
     background-color: yellowgreen;
     font-weight: 300;
+    width: 100vw;
     height: 100vh;
     
 }
@@ -33,7 +34,7 @@ main{
     background-color: yellowgreen;
     height: 80vh;
     text-align: left;
-    padding: 10vh 2vw;
+    padding: 10vh 0;
     margin: 10vh;
 }
 

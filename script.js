@@ -1,10 +1,18 @@
 'use strict';
+//function start
+//function submit
+//generate question
+//generate feedback
+//render feedback
+//next flips back to false
 
 let i = 0;
 
 //moves the iterator with event handler to each slide
 //returns generated html from page
 function renderQuiz() {
+    //should be rendering function if called next
+    //within elseif 
     i++;
     if (i > 6){
         i=0;
@@ -31,6 +39,15 @@ function generateHTML(){
 //footer should contain 
 //question x/5
 //current score
+
+//generate start screen
+//generate questions
+//generate feedback
+
+
+//render store.started === true generate first quiz
+//if question number is less that, generate html string
+
     $('main').html(renderedHTML);
 
 }
@@ -70,11 +87,9 @@ function buildQuiz(){
 let currentQuestion = STORE[i].content.map(function(obj){
     return buildRadioBtn(obj);
 });
-
+//removes commas from array
 let currentString = currentQuestion.join('');
-
-//must remove commas and make into string 
-return `<form>${currentString}</form>`;
+return `<form id="radioButton">${currentString}</form>`;
 
 }
 
@@ -88,42 +103,11 @@ function buildRadioBtn(obj){
 
 
 
-
-
-
-
-
-
-
-
-
-
-//TO DO
-
-//create variable for SCORE at $(.currentScore)
-//figure out how to track and use this data
-
-//research feilds for RADIO BUTTONS!!!
-//add REQUIRED for radio buttons
-
-//remove html elements from html
-//create html areas for this
-
-//TO KEEP TRACK OF QUESTION NUMBER
-//we just want to access question STORE[1-5].index /5
-
-//TO KEEP TRACK OF SCORE
-//WE NEED A COUNTER
-//WE NEED TO FIGURE OUT HOW TO COMMUNICATE WITH RADIO BUTTONS
-//FIND OUT IF 
-
-//MAKE OBJECT FOR CORRECT AND INCORRECT PAGE
-//CREATE THAT FUNCTION THAT PULLS OBJECT AND INPUTS TEXT
-//BASED ON WETHER ANSWER WAS TRUE OR FALSE
-//EACH TIME
-function checkSubmission(){
+function checkSubmission(event){
     event.preventDefault();
-    let value = $('input[type="button"]:checked').val();
+    //get button by name 
+    //for each input get button
+    let value = $('input[name=""]:checked').val();
     console.log(value);
     //value in array
 
@@ -133,12 +117,70 @@ function checkSubmission(){
 
 
 function main() {
-  generateHTML(STORE[i]);
-  //how to we get the 
-}
 
-$('main').on('submit', 'button', checkSubmission);
+$('main').on('submit', 'radio', checkSubmission);
 
 $('main').on('click', 'button', renderQuiz);
+//call after store was manipulated
+//to reflect change on the screen
+//how to we get the 
+
+  generateHTML(STORE[i]);
+}
+
+
+
+//handle start with jquery
+//hand start with main
+//call render after store.started 
+//incriment score
+//incriment question number
+//RETURN STRING USED FOR RENDER
 
 $(main);
+
+
+/*const STORE = {
+  questions: [ 
+    { question: 'What is this?", answers: [ 'a','b','c','d' ], correct: 'b' }
+  ],
+  quizStarted: false,
+  questionNumber: 0,
+  score: 0
+}
+Alex CumboAlex Cumbo3:41 PM
+function handleStart() {
+  $('main').on('click', '#startBtn', function() {
+  // call the render function after, flipping STORE.quizStarted to `true`;
+  });
+}
+function main() {
+  handleStart();
+  handleSubmit();
+  handleNext();
+  ...
+  render();
+}
+
+$(main);
+Alex CumboAlex Cumbo3:53 PM
+if( STORE.quizStarted === false ) {
+  // call the generateStartScreenHTML
+} else if( STORE.questionNumber < STORE.questions.length - 1) {
+  // if you're going with immediate feedback:
+  if( STORE.giveFeedback ) {
+    // call the feedbackGenerationFunction
+  } else {
+  // call the generateNextQuestion function
+} else {
+  // call the endScoreResult function
+function render() {
+  let html = '';
+ // ... if else
+ // according to which function was called:
+  html = generateStartScreen();
+
+ $( 'main' ).html( html );
+}
+
+}*/
