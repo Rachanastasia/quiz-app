@@ -19,20 +19,25 @@ function renderQuiz() {
 //calls createButton() & createContent
 //generates html to render
 function generateHTML(){
-    let currentButton = STORE[i].button;
+    let currentButton = createButton(STORE[i].button, STORE[i].buttonType);
     let currentHeader = createHeader(STORE[i].heading);
     let currentContent = createContent(STORE[i].content);
 
     let renderedHTML = 
     `<div class="header">${currentHeader}</div>
     <div class="content">${currentContent}</div>
-    <div class="button"><button type="button">${currentButton}</button></div>
+    <div class="button">${currentButton}</div>
     <div class="footer"></div>`;
 //footer should contain 
 //question x/5
 //current score
     $('main').html(renderedHTML);
 
+}
+
+function createButton(button, buttonType){
+
+    return `<button type="${buttonType}">${button}</button>`;
 }
 
 function createHeader(){
@@ -84,13 +89,7 @@ function buildRadioBtn(obj){
 
 
 
-function createRadio(index, answer, value){
-    return {
-        index: index,
-        answer: answer,
-        value: value
-    }
-}
+
 
 
 

@@ -6,6 +6,7 @@ const STORE = [
   {
     index: 0, 
     button:'Start Quiz!', 
+    buttonType: 'button',
     heading:'Are you ready to answer some questions about coding?', 
     content:''
 },
@@ -14,6 +15,7 @@ const STORE = [
     index: 1, 
     name: 'acronymHTML',
     button:'Submit', 
+    buttonType: 'submit',
     heading:'What does HTML stand for?', 
     content:[
       {
@@ -45,6 +47,7 @@ const STORE = [
     index: 2, 
     name: 'exampleProceedural',
     button:'Next', 
+    buttonType: 'submit',
     heading:'What is an example of Proceedural programming?', 
     content: [
       {
@@ -73,7 +76,8 @@ const STORE = [
     
     index: 3, 
     name: 'whatIsJQuery',
-    button:'Next', 
+    button:'Next',
+    buttonType: 'submit', 
     heading:'What is jQuery?', 
     content:[
       {
@@ -102,6 +106,7 @@ const STORE = [
     index: 4, 
     name: 'acronymOOP',
     button:'Next', 
+    buttonType: 'submit',
     heading:'What is OOP?', 
     content: [
       {
@@ -129,7 +134,8 @@ const STORE = [
   {
     index: 5, 
     name: 'webLanguage',
-    button:'Next', 
+    button:'Next',
+    buttonType: 'submit', 
     heading:'What is the primary programming language used for web development?', 
     content:[
       {
@@ -157,6 +163,7 @@ const STORE = [
   {
     index: 6, 
     button:'Play Again?', 
+    buttonType: 'button',
     heading:'Your Score is:', 
     content:'Hello'
     //this is where we should store the object that counts right

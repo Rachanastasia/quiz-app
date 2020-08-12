@@ -87,7 +87,6 @@ main button:active{
 /*MEDIA QUERIES*/
 @media all and (min-width: 600px){
     main{
-        justify-content: center;
         padding-top: 0;
     }
     main h2{
