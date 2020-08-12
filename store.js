@@ -15,13 +15,28 @@ const STORE = [
     name: 'acronymHTML',
     button:'Submit', 
     heading:'<h2>What does HTML stand for?</h2>', 
-    //how do I get my database to access the factory function???
-    content:''/*[
-      createRadio('0', 'Hypertext Makeup Language', false,
-      createRadio('1', 'How To Make Lunch', false),
-      createRadio('2', 'Hypertext Markup Language', true),
-      createRadio('3', 'this is the answer to the radio button', false)
-    ]*/
+    content:[
+      {
+        index:0, 
+        answer:'Hypertext Makeup Language',
+        value: false
+      },
+      {
+        index:1, 
+        answer:'How To Make Lunch',
+        value: false
+      },
+      {
+        index:2, 
+        answer:'Hypertext Markup Language',
+        value: true
+      },
+      {
+        index:3, 
+        answer:'',
+        value: false
+      }
+    ]
     
 },
 
@@ -34,7 +49,7 @@ const STORE = [
     content: [
       {
         index:0, 
-        answer:'',
+        answer:'fshdskhdf',
         value: false
       },
       {
@@ -142,8 +157,11 @@ const STORE = [
   {
     index: 6, 
     button:'Play Again?', 
-    heading:'', 
-    content:''
+    heading:'<h1>Your Score is </h1>', 
+    content:'Hello'
   }
 ]
 
+//instead of having h1 and h2, we could just increase the size
+//of h1, add a class of larger and alter in css.
+//I think that would fix alignment issues

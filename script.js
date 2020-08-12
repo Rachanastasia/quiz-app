@@ -1,30 +1,49 @@
 'use strict';
+
 let i = 0;
 $('.button').on('click', renderQuiz);
 
-
 function renderQuiz(event) {
-    //we want i to change every time the button is clicked, rendering 
-    //0 then 1 the first time the button is clicked
-    //let current = STORE[i]
-i++;
+    //on click we want to run this function
+    //how to render on page load too?
+    if (i >= 6){
+        i=0;
+        }
+        i++;
+        generateHTML();
+
+    
+}
+function generateHTML(){
+    //gets button and header and content data
+    //call createButton()
 
     let currentButton = createButton(STORE[i].button);
     let currentHeader = STORE[i].heading;
     let currentContent = createContent(STORE[i].content);
-    
-    
-        $('.button').html(currentButton);
-        $('.header').html(currentHeader);
-        $('.content').html(currentContent);
 
-if (i >= 6){
-    i=0;
-}
+    $('main').html(rendering(currentButton, currentHeader, currentContent));
+
+
 
 }
 
+function rendering(header, content, button){
+    let rendered = 
+    `<div class="header">${currentHeader}</div>
+    <div class="content">${currentContent}</div>
+    <div class="button">${currentButton}</div>
+    <div class="footer"> 
+        <div class="index"></div>
+        <div class="points"></div>
+    </div>`
 
+    return rendered;
+}
+
+//create items
+//render html
+//render items
 
 //give STORE[i].button html formatting to become a button 
 function createButton() {
@@ -108,8 +127,9 @@ function createRadio(index, answer, value){
 //change formatted answers to objects run through a function
 
 //research feilds for RADIO BUTTONS!!!
-
-
+//add REQUIRED for radio buttons
+//remove html elements from html
+//create html areas for this
 
 //TO KEEP TRACK OF QUESTION NUMBER
 //we just want to access question STORE[1-5].index /5
@@ -124,6 +144,7 @@ function createRadio(index, answer, value){
 
 
 function main() {
+  $('main').html(rendering(STORE[0]));
 }
 
 $(main);
