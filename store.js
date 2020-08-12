@@ -4,7 +4,7 @@ const STORE = {
 
 
   questions: [
-    
+   
     {
       question: 'What does HTML stand for?',
       answers: [
@@ -24,7 +24,7 @@ const STORE = {
         'Filler'
       ],
       correctAnswer: 'Filler Correct'
-    }
+    },
     {
       question: 'What is the primary programming language used for web development?',
       answers: [
@@ -59,6 +59,6 @@ const STORE = {
   quizStarted: false,
   questionNumber: 0,
   score: 0
-}
+};
 
   
