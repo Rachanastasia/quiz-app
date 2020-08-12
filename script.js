@@ -1,44 +1,38 @@
 'use strict';
 
 let i = 0;
-$('.button').on('click', renderQuiz);
 
-function renderQuiz(event) {
+function renderQuiz() {
     //on click we want to run this function
     //how to render on page load too?
+    i++;
     if (i >= 6){
         i=0;
         }
-        i++;
-        generateHTML();
+    
+    return generateHTML();
 
     
 }
 function generateHTML(){
     //gets button and header and content data
-    //call createButton()
-
+    //calls createButton() & createContent
+    //generates html to render
     let currentButton = createButton(STORE[i].button);
     let currentHeader = STORE[i].heading;
     let currentContent = createContent(STORE[i].content);
 
-    $('main').html(rendering(currentButton, currentHeader, currentContent));
-
-
-
-}
-
-function rendering(header, content, button){
-    let rendered = 
+    let renderedHTML = 
     `<div class="header">${currentHeader}</div>
     <div class="content">${currentContent}</div>
     <div class="button">${currentButton}</div>
     <div class="footer"> 
-        <div class="index"></div>
-        <div class="points"></div>
     </div>`
 
-    return rendered;
+    $('main').html(renderedHTML);
+
+//footer should contain 
+
 }
 
 //create items
@@ -144,7 +138,12 @@ function createRadio(index, answer, value){
 
 
 function main() {
-  $('main').html(rendering(STORE[0]));
+  generateHTML(STORE[i]);
+  //how to we get the 
 }
+
+
+
+$('main').on('click', 'button', renderQuiz);
 
 $(main);
