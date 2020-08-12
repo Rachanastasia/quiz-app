@@ -1,3 +1,7 @@
+/*we need to make the position of the button static, based on px amount from
+left so that it doesn't move every time we answer a question
+button should have absolute positioning??? */
+
 body{
     font-family: 'Anonymous Pro', 'roboto', sans-serif;
     display: flex;
@@ -10,8 +14,6 @@ body{
     font-weight: 300;;
     
 }
-
-
 
 main{
     display: flex;

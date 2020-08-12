@@ -1,60 +1,89 @@
 'use strict';
+let i = 0;
+$('.button').on('click', renderQuiz);
 
-
-
-
-$('button').on('click', renderQuiz);
-//eventually want .on(renderQuiz) to call 
-//createButton, createContent
 
 function renderQuiz(event) {
-    //i=0??
-    for (let i = 0; i < STORE.length; i++) {
-        $('button').html(STORE[i].button);
-    }
+    //we want i to change every time the button is clicked, rendering 
+    //0 then 1 the first time the button is clicked
+    //let current = STORE[i]
+i++;
 
-    //this is not really cycling through each of the items. 
+    let currentButton = createButton(STORE[i].button);
+    let currentHeader = STORE[i].heading;
+    let currentContent = createContent(STORE[i].content);
+    
+    
+        $('.button').html(currentButton);
+        $('.header').html(currentHeader);
+        $('.content').html(currentContent);
+
+if (i >= 6){
+    i=0;
+}
 
 }
-//cycle through the array on click and call every one of these functions
+
 
 
 //give STORE[i].button html formatting to become a button 
 function createButton() {
-    let buttonReady = `<button type="button>${STORE[i].button}</button>`;
+    let buttonReady = `<button type="button">${STORE[i].button}</button>`;
     return buttonReady;
 
 }
 
-//let button = createButton(STORE[i].button)
 
 
 //give STORE[i].content html formatting to become valid content
 function createContent() {
-    //logic to see if STORE[x].content needs building
-    //if true call:
-    //can use switch based on content as string or obj
-     //buildQuiz();
+    let current = STORE[i].content;
+    if (current === ''){
+        return current;
+    //will this confuse the system or does it successfully
+    //weed out the empty strings???
+    } else if (typeof current === 'string'){
+        return `<h3>${current}</h3>`;
+    } else if (typeof current === 'array'){
+       return buildQuiz(current);
+
+    }
 
 }
 
 function buildQuiz(){
-//call this function with STORE[1-5] to build 
-//calls buildQuizQuestion
+//SHOULD THIS INCLUDE THE FACTORY FUNCTION AT LINE ~83???
+//this function loops through content array
+//and retrieves each object value
+//then sends each through buildQuizRadio
+
+buildQuizRadio();
 }
 
 
-function buildQuizQuestions(){
-    
+function buildQuizRadio(){
     //forEach STORE[x].content
     //access element in content array
     return `<div class="answer">
-    <input type="radio" name="${STORE[X].name}" value="${STORE[X].content[X].value}">
-    <label for="WHAT SHOULD I PUT HERE">${STORE[X].content[X].answer}</label><br>
+    <input type="radio" name="${STORE[i].name}" value="${STORE[i].content[i].value}">
+    <label for="WHAT SHOULD I PUT HERE">${STORE[i].content[i].answer}</label><br>
 </div>`
 }
 
 
+
+
+//FACTORY FUNCTION
+//if I want to use this in the database, do I have to move the 
+//factory to store.js?
+
+function createRadio(index, answer, value){
+    return {
+        index: index,
+        answer: answer,
+        value: value
+    }
+}
 
 
 
@@ -82,7 +111,13 @@ function buildQuizQuestions(){
 
 
 
+//TO KEEP TRACK OF QUESTION NUMBER
+//we just want to access question STORE[1-5].index /5
 
+//TO KEEP TRACK OF SCORE
+//WE NEED A COUNTER
+//WE NEED TO FIGURE OUT HOW TO COMMUNICATE WITH RADIO BUTTONS
+//FIND OUT IF 
 
 
 
