@@ -36,7 +36,6 @@ function generateHTML(){
 }
 
 function createButton(button, buttonType){
-
     return `<button type="${buttonType}">${button}</button>`;
 }
 
@@ -122,7 +121,14 @@ function buildRadioBtn(obj){
 //CREATE THAT FUNCTION THAT PULLS OBJECT AND INPUTS TEXT
 //BASED ON WETHER ANSWER WAS TRUE OR FALSE
 //EACH TIME
+function checkSubmission(){
+    event.preventDefault();
+    let value = $('input[type="button"]:checked').val();
+    console.log(value);
+    //value in array
 
+
+}
 
 
 
@@ -131,7 +137,7 @@ function main() {
   //how to we get the 
 }
 
-
+$('main').on('submit', 'button', checkSubmission);
 
 $('main').on('click', 'button', renderQuiz);
 
