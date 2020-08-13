@@ -1,55 +1,5 @@
 'use strict';
 
-
-//if quizStarted === false - render main page with start button
-
-
-//ESLINT at end to 'lint' code
-//change esling rules to ignore spacing
-
-
-//input title and start button
-//go to each quiz information by question number
-//array.length + 1
-//questionNumber++
-
-//questionNumber = STORE.quesionNumber
-
-//QUESTION NUMBER NEEDS TO BE RENDERED ON EVERY QUESTION
-
-//if questionNumber == 1
-//get questionOne
-//renderQuestionone
-//make event handler that captures the answer and STORE.score++
-//if submitted correct answer, render correct answer content
-//with updated score
-//else render wrong answer content
-//with STORE.questions[questionNumber-1].correctAnswer
-//QuestionNumber++
-
-//if questionNumber == 2
-//get questionTwo
-//renderQuestionTwo
-//use event handler to capture the answer if 
-//answer cought by event handler ==== STORE.questions[1].correctAnswer
-//STORE.score++
-//STORE.questionNumber++
-//... until questionFour
-
-//if questionNumber === 5
-//go to results page after shown if answer is correct
-
-//results page has:
-//you got STORE.score / 5 correct!
-//button play again?
-
-//has class and constructor for types of buttons
-//submission buttons
-//next page buttons (with different text based on which page)
-//playagain button on last page sets store.quizStarted to false
-
-
-
 /*TEMPLATE GENERATION FUNCTIONS*/
 
 
@@ -64,7 +14,9 @@ function generateStartScreen() {
     let button = makeButton(startButton);
 
     let startScreenHtml = `${header}${button}`;
-    STORE.questionNumber++;
+    
+
+    STORE.quizStarted = true;
 
     render(startScreenHtml);
 }
@@ -76,38 +28,30 @@ function generateQuestions() {
 
 
     let question = STORE.questions[num].question;
-    let answers = STORE.question[num].answers;
-    let name = STORE.question[num].variables.name;
-    let values = STORE.question[num].variables.value;
+    let answers = STORE.questions[num].answers;
+    let name = STORE.questions[num].variables.name;
+    let values = STORE.questions[num].variables.value;
 
-    let answerButtons = answers.map(function (answer) {
-        return `<input type="radio" name="${name}" value='${value}'>
-            <label for="">${answer}</label><br>`;
+    let radioButtons = [];
 
-    });
+    for (let i=0; i<answers.length; i++){
+        let radio = `<input type="radio" name="${name}" value='${values[i]}'>
+        <label for="${values[i]}">${answers[i]}</label><br>`;
 
+        radioButtons.push(radio);
+    }
 
-    let answerString = answerButtons.join(",");
-    let startButton = {
-        class: 'replayButton',
-        type: 'button',
-        text: 'Play Again?'
-    };
+    let allRadioString = radioButtons.join('');
 
     let submitButton = {
         class: 'submitButton',
         type: 'submit',
-        text: submit
+        text: 'submit'
     };
 
-    //add property for question submitted
-    //if true, run T/F function
-    //if not, render questions page
-
-    let buttonNext = makeButton(startButton);
     let buttonSubmit = makeButton(submitButton);
 
-    let formattedHTML = `<h3>${question}</h3>${answerString}`;
+    let formattedHTML = `<h3>${question}</h3><form id=${name}>${allRadioString}</form>${buttonSubmit}`;
 
    return render(formattedHTML);
 
@@ -116,8 +60,19 @@ function generateQuestions() {
 //how do I get the page to re-render immediate feedback on wether answer was right or wrong
 
 function generateCorrect() {
-    let heading = "<h1>That's right!</h1>"
-    let currentScore = `<h3 class = "score">Your current score is ${STORE.score} / ${STORE.questionNumber}</h3>`
+    let heading = "<h1>That's right!</h1>";
+    let currentScore = `<h3 class = "score">Your current score is ${STORE.score} / ${STORE.questionNumber}</h3>`;
+    let button = {
+        class: 'nextButton',
+        type: 'button',
+        text: 'Next'
+    }
+
+    let nextButton = makeButton(button);
+
+    let correctHTML = '';
+    
+    return render(`${heading}${currentScore}${nextButton}`);
 
 
 }
@@ -189,12 +144,12 @@ function replayQuiz(event) {
 
 function checkSubmission(event) {
     event.preventDefault();
-    //gets button name from STORE
-    let name = STORE.questions.variables.name;
-    //retrieves button with input name and checked value
-    //how do I retrieve specific buttons???
+    let num = STORE.questionNumber;
+    let name = STORE.questions[num].variables.name;
+    let values = STORE.questions[num].variables.value;
     let answer = $(`input[name:'${name}']:checked`).val();
-    if (answer === STORE.questions[questionNumber].correctAnswer) {
+
+    if (answer === STORE.questions[num].correctAnswer) {
         STORE.score++;
         return generateCorrect();
     } else {
