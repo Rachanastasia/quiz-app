@@ -4,61 +4,86 @@ const STORE = {
 
 
   questions: [
-   
+
     {
       question: 'What does HTML stand for?',
       answers: [
         'How to Make Lunch',
-        'Hypertext Makeup Language',
-        'Hypertone Markup Language',
-        'Hypertext Markup Language'
+        'Hyper Text Makeup Language',
+        'Hyper Tone Markup Language',
+        'Hyper Text Markup Language'
       ],
-      correctAnswer: 'Hypertext Markup Language'
+      correctAnswer: 'Hyper Text Markup Language',
+      variables: {
+        name: 'html',
+        value: [oneFalse, twoFalse, threeFalse, fourTrue]
+      }
+
     },
     {
-      question: 'What is jQuery?',
+      question: 'jQuery is a:',
       answers: [
-        'Filler',
-        'Filler Correct',
-        'Filler',
-        'Filler'
+        'Javascript Framework',
+        'Media Query',
+        'Javascript Library',
+        'Function'
       ],
-      correctAnswer: 'Filler Correct'
-    },
-    {
-      question: 'What is the primary programming language used for web development?',
-      answers: [
-        'Filler',
-        'Filler',
-        'Filler',
-        'Filler Correct'
-      ],
-      correctAnswer: 'Filler Correct'
+      correctAnswer: 'Javascript Library',
+      variables: {
+        name: 'jquery',
+        value: [oneFalse, twoFalse, threeTrue, fourFalse]
+
+      }
     },
     {
       question: 'What is OOP?',
       answers: [
-        'Filler Correct',
-        'Filler',
-        'Filler',
-        'Filler'
+        "Optional Object Parameter",
+        "Over Objective Programming",
+        "Object Oriented Programming",
+        "Open Objective Parameter"
       ],
-      correctAnswer: 'Filler Correct'
+      correctAnswer: 'Object Oriented Programming',
+      variables: {
+        name: 'oop',
+        value: [oneFalse, twoFalse, threeFalse, fourTrue]
+      }
     },
     {
-      question: 'What is an example of Proceedural programming?',
+      question: "What type of programming language is Javascript?",
       answers: [
-        'Filler',
-        'Filler Correct',
-        'Filler',
-        'Filler'
+        "Procedural",
+        "Functional",
+        "Object Oriented",
+        "Database"
       ],
-      correctAnswer: 'Filler Correct'
+      correctAnswer: 'Object Oriented',
+      variables: {
+        name: 'js',
+        value: [oneFalse, twoFalse, threeFalse, fourTrue]
+
+      }
+    },
+    {
+      question: "What type of programming language is Python?",
+      answers: [
+        "Database",
+        "Procedural",
+        "Functional",
+        "Object Oriented"
+
+      ],
+      correctAnswer: 'Database',
+      variables: {
+        name: 'python',
+        value: [oneTrue, twoFalse, threeFalse, fourFalse]
+
+      }
     }
   ],
   quizStarted: false,
   questionNumber: 0,
-  score: 0
+  score: 0,
+  key: 
 };
 
-  
