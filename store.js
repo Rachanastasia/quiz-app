@@ -16,7 +16,7 @@ const STORE = {
       correctAnswer: 'Hyper Text Markup Language',
       variables: {
         name: 'html',
-        value: [oneFalse, twoFalse, threeFalse, fourTrue]
+        value: ['oneFalse', 'twoFalse', 'threeFalse', 'fourTrue']
       }
 
     },
@@ -31,7 +31,7 @@ const STORE = {
       correctAnswer: 'Javascript Library',
       variables: {
         name: 'jquery',
-        value: [oneFalse, twoFalse, threeTrue, fourFalse]
+        value: ['oneFalse', 'twoFalse', 'threeTrue', 'fourFalse']
 
       }
     },
@@ -46,7 +46,7 @@ const STORE = {
       correctAnswer: 'Object Oriented Programming',
       variables: {
         name: 'oop',
-        value: [oneFalse, twoFalse, threeFalse, fourTrue]
+        value: ['oneFalse', 'twoFalse', 'threeFalse', 'fourTrue']
       }
     },
     {
@@ -60,7 +60,7 @@ const STORE = {
       correctAnswer: 'Object Oriented',
       variables: {
         name: 'js',
-        value: [oneFalse, twoFalse, threeFalse, fourTrue]
+        value: ['oneFalse', 'twoFalse', 'threeFalse', 'fourTrue']
 
       }
     },
@@ -76,14 +76,13 @@ const STORE = {
       correctAnswer: 'Database',
       variables: {
         name: 'python',
-        value: [oneTrue, twoFalse, threeFalse, fourFalse]
+        value: ['oneTrue', 'twoFalse', 'threeFalse', 'fourFalse']
 
       }
     }
   ],
   quizStarted: false,
   questionNumber: 0,
-  score: 0,
-  key: 
-};
+  score: 0
+}
 

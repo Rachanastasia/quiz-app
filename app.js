@@ -1,42 +1,6 @@
 'use strict';
 
 
-
-//GENERATE START SCREEN
-//GENERATE QUESTIONS
-//GENERATE FEEDBACK
-
-//get in by saying store.questions 
-
-//then use array methods to cycle through each question
-
-//processing click on answer button
-
-//storing answer from the user
-
-//adding next button
-
-//next button does not work unless user has input radio button
-
-//where is radio button input stored???
-
-//moving on to the next question with next button when the first one is submitted
-
-//make variable for rendering this button as next
-
-//next button must keep track of question by question number
-
-//and access each question
-//formatted as an h3
-//and each set of answers
-//formatted in a form as radio buttons
-
-//make different buttons with different classes
-
-
-
-
-
 //if quizStarted === false - render main page with start button
 
 
@@ -89,96 +53,113 @@
 /*TEMPLATE GENERATION FUNCTIONS*/
 
 
-//function to control what is being shown
-
-
-
-
 function generateStartScreen() {
     let header = '<h1 class="startScreenHeader">Are you ready to answer some questions about coding?</h1>';
-        let startButton = {
-            class: 'nextButton',
-            type: 'button',
-            text: 'Start Quiz'
-        }
-    
+    let startButton = {
+        class: 'nextButton',
+        type: 'button',
+        text: 'Start Quiz'
+    }
+
     let button = makeButton(startButton);
 
-    let startScreenArr = [];
-    let startScreenHtml = startScreenArr.push(header, button).join(',');
+    let startScreenHtml = `${header}${button}`;
+    STORE.questionNumber++;
 
-    return renderStartScreen(startScreenHtml);
+    render(startScreenHtml);
 }
 
 
 function generateQuestions() {
 
-    //this should be an arry of objects that contain the keys 
-    //and values that correspond to the ones needed in the form template string
-    //each question has four answers, each of which has a corresponding 
-    //object with the keys{name: alike to all from each Q , value: [uniqueAnswer, uniqueAnswer, uniqueAnswer, uniqueAnswer]}
+    let num = STORE.questionNumber;
 
-    //unique to button
-    let currentValue = '';
-    //set value = 'html' in map
-    //for in lable  for = 'for'same as value
-    let question = STORE.questions[STORE.questionNumber].question;
-    let answers = STORE.question[STORE.questionNumber].answers;
-    let name = STORE.question[STORE.questionNumber].variables.name;
-    let values = STORE.question[STORE.questionNumber].variables.value;
 
-    let formattedAnswers = answers.map(function (answer) {
-        //research fields and find out which can be changed
-        //radio button id for each or for each set?
-        //need to add quesiton in here  
+    let question = STORE.questions[num].question;
+    let answers = STORE.question[num].answers;
+    let name = STORE.question[num].variables.name;
+    let values = STORE.question[num].variables.value;
+
+    let answerButtons = answers.map(function (answer) {
         return `<input type="radio" name="${name}" value='${value}'>
             <label for="">${answer}</label><br>`;
 
-    }).join(",");
-
-    let formattedHTML = `<h3>${question}</h3>${}`
-    //returns string of array items joined at comma
-
-   // return `<form id="${">${formattedAnswers}</form>` 
-
-    }
-    
+    });
 
 
+    let answerString = answerButtons.join(",");
+    let startButton = {
+        class: 'replayButton',
+        type: 'button',
+        text: 'Play Again?'
+    };
 
+    let submitButton = {
+        class: 'submitButton',
+        type: 'submit',
+        text: submit
+    };
 
-    function generateFeedback(){
-        let header = '<h1 class="feedBackHeader">End of Quiz</h1>';
-        let startButton = {
-            class: 'replayButton',
-            //add functionality
-            type: 'button',
-            text: 'Play Again?'
-        };
-        let submitButton = {
-            class: 'submitButton',
-            type: 'submit',
-            text: submit
-        }
-    
+    //add property for question submitted
+    //if true, run T/F function
+    //if not, render questions page
+
     let buttonNext = makeButton(startButton);
-    let buttonSubmit = makeButton()
+    let buttonSubmit = makeButton(submitButton);
+
+    let formattedHTML = `<h3>${question}</h3>${answerString}`;
+
+   return render(formattedHTML);
+
+}
+
+//how do I get the page to re-render immediate feedback on wether answer was right or wrong
+
+function generateCorrect() {
+    let heading = "<h1>That's right!</h1>"
+    let currentScore = `<h3 class = "score">Your current score is ${STORE.score} / ${STORE.questionNumber}</h3>`
+
+
+}
+
+function generateIncorrect() {
+    let heading = "<h1>That's not right</h1>";
+    let correctAnswer = `<h3 class='corrected'>The correct answer is: ${STORE.questions[questionNumber].correctAnswer}`;
+    let currentScore = `<h3 class = "score">Your current score is ${STORE.score} / ${STORE.questionNumber}</h3>`;
+
+
+}
+
+
+
+function generateFeedback() {
+    let header = '<h1 class="feedBackHeader">End of Quiz</h1>';
+    let startButton = {
+        class: 'replayButton',
+        type: 'button',
+        text: 'Play Again?'
+    };
+
+    let submitButton = {
+        class: 'submitButton',
+        type: 'submit',
+        text: submit
+    };
+
+    let buttonReplay = makeButton(startButton);
+    let buttonSubmit = makeButton(submitButton);
     let content = `<h3>You got ${STORE.score} / ${STORE.questionNumber} correct!</h3>`;
     let feedbackArr = [];
 
-    let feedbackHTML = feedbackArr.push(header, content, buttonSubmit, buttonNext).join(',');
-        
+    let feedbackHTML = feedbackArr.push(header, content, buttonReplay).join(',');
+
     render(feedBackHTML);
 
-    }
+}
 
 
-
-
-
-
-function makeButton(obj){
-    return `<button class= '${obj.class}' type = "${obj.type}"> ${obj.text}</button >`;
+function makeButton(obj) {
+    return `<button class= '${obj.class}' type = '${obj.type}'>${obj.text}</button>`;
 
 }
 
@@ -192,54 +173,59 @@ function makeButton(obj){
 
 /*RENDER*/
 //renders html to DOM based on what is put into function
-function render(str){
-    $('main').html(str);
+function render(str) {
+   return $('main').html(str);
 }
-
-
-
 
 
 
 /* EVENT HANDLER FUNCTIONS*/
 
 //write event that flips state of STORE.quizStarted to false
-function replayQuiz(event){
-return STORE.quizStarted = 'false';
+function replayQuiz(event) {
+    return STORE.quizStarted = 'false';
 }
 
 
-function checkSubmission(event){
-//if input is not checked
-//submit button should not be clickable
+function checkSubmission(event) {
+    event.preventDefault();
+    //gets button name from STORE
+    let name = STORE.questions.variables.name;
+    //retrieves button with input name and checked value
+    //how do I retrieve specific buttons???
+    let answer = $(`input[name:'${name}']:checked`).val();
+    if (answer === STORE.questions[questionNumber].correctAnswer) {
+        STORE.score++;
+        return generateCorrect();
+    } else {
+        return generateIncorrect();
+    }
+
 }
 
-//write function to worki with 
+function validateNextButton() {
+    //pass in answer set
+    //if none of the answers are checked 
+    //if quizStarted === true && questionNumber === 1-5,
+    //let answer = $("input-[names-correctAnswer]:checked".val();('
+    //forEach answer in array of formatted answers, 
+    //if $input-[names])
+
+}
+
+
 
 
 function main() {
 
-    if (STORE.quizStarted === false){
+    if (STORE.quizStarted == false) {
         generateStartScreen();
-    } else if (STORE.questionNumber <= 5){
+        
+    } else if (STORE.questionNumber <= 5) {
         generateQuestions();
     } else {
         generateFeedback();
     }
-
-
-
-
-
-
-//if doesnt run move event handlers
-
-//
-//two different buttons submit and next
-//listen for event trigger
-//if nothing triggered 
-//unless input is pressed
-//next is unclickable unless returns data 
 
 
 }
@@ -249,4 +235,5 @@ $('main').on('submit', 'radio', checkSubmission);
 $('main').on('click', '.replayButton', replayQuiz);
 //moves to question from main and from feedback to question
 $('main').on('click', '.nextButton', generateQuestions);
+
 $(main);
