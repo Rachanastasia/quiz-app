@@ -1,15 +1,10 @@
 'use strict';
 
-/*TEMPLATE GENERATION FUNCTIONS*/
+
 
 //GENERATE START SCREEN
 //GENERATE QUESTIONS
 //GENERATE FEEDBACK
-function generateStartScreen(obj){
-
-    renderStartScreen();
-
-}
 
  //get in by saying store.questions 
 
@@ -43,36 +38,11 @@ function generateStartScreen(obj){
 
 
     //if quizStarted === false - render main page with start button
-    if (STORE.quizStarted === false){
-        generateStartScreen();
-    } else if (STORE.questionNumber <= 5){
-        generateQuestions();
-    } else {
-        generateFeedback();
-    }
+   
 
+ 
 
-    function makeButton(obj){
-        return `<button class = '${obj.class}' type = '${obj.type}'>${obj.text}</button>`;
-
-    }
-
-
-    function generateStartScreen(){
-        let header = '<h1 class="startScreenHeader">Are you ready to answer some questions about coding?<h1>';
-        let startButton = {
-            class : 'startButton',
-            type: 'button',
-            text: 'Start Quiz'
-        }
-        startScreenHtml = header + makeButton(startButton);
-        //this has apostrophes in the middle. Do I need to push into array and join???
-        renderStartScreen(startScreenHtml);
-    }
-
-    function renderStartScreen(str){
-        $('main').html(str);
-    }
+    
       //input title and start button
     //go to each quiz information by question number
     //array.length + 1
@@ -115,22 +85,48 @@ function generateStartScreen(obj){
 
 
 
+/*TEMPLATE GENERATION FUNCTIONS*/
+
+
+//function to control what is being shown
 
 
 
 
-
-
-
-
-function generateHTML(){
-    generateStartScreen();
-    generateQuestions();
-    generateFeedback();
-        //console.log('question')
-    });
+function generateStartScreen(){
+    let header = '<h1 class="startScreenHeader">Are you ready to answer some questions about coding?</h1>';
+    let startButton = {
+        class : 'nextButton',
+        type: 'button',
+        text: 'Start Quiz'
+    }
+    startScreenHtml = header + makeButton(startButton);
+    //this has apostrophes in the middle. Do I need to push into array and join???
+    renderStartScreen(startScreenHtml);
 }
 
+function generateQuestions(){
+    let question = STORE.questions[STORE.questionNumber].question;
+    let answers = STORE.question[STORE.questionNumber].answers;
+
+    let formattedAnswers = answers.map(function(answer){
+        //research fields and find out which can be changed
+        //radio button id for each or for each set? 
+        return `<input type="radio" id="one" name="" value="false">
+            <label for="">${answer}</label><br>`;
+
+    }).join(",");
+
+    return `<form id="answers">${formattedAnswers}</form>`;
+
+}
+
+//add information to question render function
+
+function makeButton(obj){
+    return `<button class = '${obj.class}' type = '${obj.type}'>${obj.text}</button>`;
+
+}
 
 
 
@@ -141,18 +137,10 @@ function generateHTML(){
 
 
 /*RENDER*/
-function render(){
-    let html = '';
-    //put back into html
+
+function renderStartScreen(str){
+    $('main').html(str);
 }
-
-
-function renderTitle(){
-   return $('main').html()
-}
-
-
-
 
 
 
@@ -160,43 +148,42 @@ function renderTitle(){
 
 
 /* EVENT HANDLER FUNCTIONS*/
-function start(){
-    if(STORE.quizStarted === false){
-        generateStartScreen();
-    }
-}
-function quiz(questions, questionNumber){
-    questions.forEach(function(question, answers){
-        return renderPage();
-
-    })
-    questionNumber++;
-    return 
-}
-
-
-
 function checkSubmission(event){
-    event.preventDefault();
-    //get button by name 
-    //for each input get button
-    let value = $('input[name=""]:checked').val();
-    console.log(value);
-    //value in array
-
-
+//if input is not checked
+//submit button should not be clickable
 }
-
 
 
 function main() {
 
+    if (STORE.quizStarted === false){
+        generateStartScreen();
+    } else if (STORE.questionNumber <= 5){
+        generateQuestions();
+    } else {
+        generateFeedback();
+    }
+
+
+
+
+
+
 $('main').on('submit', 'radio', checkSubmission);
 
-$('main').on('click', 'button', renderQuiz);
 
-function main(){
-    //call all functions here
+//moves to question from main and from feedback to question
+$('main').on('click', '.nextButton', generateQuestions);
+//if doesnt run move event handlers
+
+
+//two different buttons submit and next
+//listen for event trigger
+//if nothing triggered 
+//unless input is pressed
+//next is unclickable unless returns data 
+
+
 }
 
 $(main);

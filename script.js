@@ -103,24 +103,7 @@ function buildRadioBtn(obj){
 
 
 
-function checkSubmission(event){
-    event.preventDefault();
-    //get button by name 
-    //for each input get button
-    let value = $('input[name=""]:checked').val();
-    console.log(value);
-    //value in array
 
-
-}
-
-
-
-function main() {
-
-$('main').on('submit', 'radio', checkSubmission);
-
-$('main').on('click', 'button', renderQuiz);
 //call after store was manipulated
 //to reflect change on the screen
 //how to we get the 
