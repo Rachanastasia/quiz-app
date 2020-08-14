@@ -14,6 +14,7 @@ const STORE = {
         'Hyper Text Markup Language'
       ],
       correctAnswer: 'Hyper Text Markup Language',
+      //remove and simplify
       variables: {
         name: 'html',
         value: ['oneFalse', 'twoFalse', 'threeFalse', 'fourTrue']

@@ -1,194 +1,124 @@
 'use strict';
 
-/*TEMPLATE GENERATION FUNCTIONS*/
+//let i = 0;
+
+//moves the iterator with event handler to each slide
+//returns generated html from page
 
 
-function generateStartScreen() {
-    let header = '<h1 class="startScreenHeader">Are you ready to answer some questions about coding?</h1>';
-    let startButton = {
-        class: 'nextButton',
-        type: 'button',
-        text: 'Start Quiz'
-    }
-
-    let button = makeButton(startButton);
-
-    let startScreenHtml = `${header}${button}`;
+//generate main page 
+function generateMainPage() {
+    return ` <div class="startPage">
+        < h1 > Are you ready for some Coding questions? Click the button to get started! </h1>
     
 
-    STORE.quizStarted = true;
-
-    render(startScreenHtml);
+        <div>
+            <button class="button main-button" type="button">Start</button>
+        </div>
+</div>`;
 }
 
 
-function generateQuestions() {
+//Generate the questions
+function nextQuestion() {
+    let questionNumber = STORE.questionNumber
+    let question = STORE.questions[questionNumber];
+    //this does not need to render to the html
+    //WE WANT TO RENDER THIS WITH RENDER
+    //for each or for loop to render each question
+        (`< div class ="box"> 
+            < div class= "question" > ${question} </div >
+        <form class="form">
+        <input type="radio" id="true" name="answers" value="${questions.answers[0]}">
+        <label for="true">${question.answers[i]}</label><br>
+        <input type="radio" id="true" name="answers" value="${questions.answers[0]}">
+        <label for="false">${questions.answers[1]}</label>
+        </br> <button type="submit" id="submit">Submit</button>
+    </form>
 
-    let num = STORE.questionNumber;
-
-
-    let question = STORE.questions[num].question;
-    let answers = STORE.questions[num].answers;
-    let name = STORE.questions[num].variables.name;
-    let values = STORE.questions[num].variables.value;
-
-    let radioButtons = [];
-
-    for (let i=0; i<answers.length; i++){
-        let radio = `<input type="radio" name="${name}" value='${values[i]}'>
-        <label for="${values[i]}">${answers[i]}</label><br>`;
-
-        radioButtons.push(radio);
-    }
-
-    let allRadioString = radioButtons.join('');
-
-    let submitButton = {
-        class: 'submitButton',
-        type: 'submit',
-        text: 'submit'
-    };
-
-    let buttonSubmit = makeButton(submitButton);
-
-    let formattedHTML = `<h3>${question}</h3><form id=${name}>${allRadioString}</form>${buttonSubmit}`;
-
-   return render(formattedHTML);
-
+    </div>
+</form>
+    `);
 }
 
-//how do I get the page to re-render immediate feedback on wether answer was right or wrong
 
-function generateCorrect() {
-    let heading = "<h1>That's right!</h1>";
-    let currentScore = `<h3 class = "score">Your current score is ${STORE.score} / ${STORE.questionNumber}</h3>`;
-    let button = {
-        class: 'nextButton',
-        type: 'button',
-        text: 'Next'
-    }
-
-    let nextButton = makeButton(button);
-
-    let correctHTML = '';
+//function that contains the HTML this should show the questions on the page
+function endOfGame() {
+                main.html(
+            return `<div class = "endofGame">
+                    <h1> End of quiz!</h1>
+                        <h3>You got ${STORE.score} correct!</h3>
+                        <button class="button main-button" type="button">Play again</button>
+        </div > '
     
-    return render(`${heading}${currentScore}${nextButton}`);
-
-
-}
-
-function generateIncorrect() {
-    let heading = "<h1>That's not right</h1>";
-    let correctAnswer = `<h3 class='corrected'>The correct answer is: ${STORE.questions[questionNumber].correctAnswer}`;
-    let currentScore = `<h3 class = "score">Your current score is ${STORE.score} / ${STORE.questionNumber}</h3>`;
-
-
+        );
 }
 
 
 
-function generateFeedback() {
-    let header = '<h1 class="feedBackHeader">End of Quiz</h1>';
-    let startButton = {
-        class: 'replayButton',
-        type: 'button',
-        text: 'Play Again?'
-    };
-
-    let submitButton = {
-        class: 'submitButton',
-        type: 'submit',
-        text: submit
-    };
-
-    let buttonReplay = makeButton(startButton);
-    let buttonSubmit = makeButton(submitButton);
-    let content = `<h3>You got ${STORE.score} / ${STORE.questionNumber} correct!</h3>`;
-    let feedbackArr = [];
-
-    let feedbackHTML = feedbackArr.push(header, content, buttonReplay).join(',');
-
-    render(feedBackHTML);
+//render the page
+function renderQuiz() {
+    let html = htmlGenerate();
+    console.log(html);
+    $("main").html(html);
 
 }
 
 
-function makeButton(obj) {
-    return `<button class= '${obj.class}' type = '${obj.type}'>${obj.text}</button>`;
-
-}
-
-
-
-
-
-
-
-
-
-/*RENDER*/
-//renders html to DOM based on what is put into function
-function render(str) {
-   return $('main').html(str);
-}
-
-
-
-/* EVENT HANDLER FUNCTIONS*/
-
-//write event that flips state of STORE.quizStarted to false
-function replayQuiz(event) {
-    return STORE.quizStarted = 'false';
-}
-
-
-function checkSubmission(event) {
-    event.preventDefault();
-    let num = STORE.questionNumber;
-    let name = STORE.questions[num].variables.name;
-    let values = STORE.questions[num].variables.value;
-    let answer = $(`input[name:'${name}']:checked`).val();
-
-    if (answer === STORE.questions[num].correctAnswer) {
-        STORE.score++;
-        return generateCorrect();
-    } else {
-        return generateIncorrect();
-    }
-
-}
-
-function validateNextButton() {
-    //pass in answer set
-    //if none of the answers are checked 
-    //if quizStarted === true && questionNumber === 1-5,
-    //let answer = $("input-[names-correctAnswer]:checked".val();('
-    //forEach answer in array of formatted answers, 
-    //if $input-[names])
-
-}
-
-
-
-
+//main function
 function main() {
+    
+    htmlGenerate();
+    generateMainPage();
+    endofGame();
+    renderQuiz();
+    nextQuestion();
+    answerSumbit();
+    console.log(STORE.questions);
+}
 
-    if (STORE.quizStarted == false) {
-        generateStartScreen();
-        
-    } else if (STORE.questionNumber <= 5) {
-        generateQuestions();
-    } else {
-        generateFeedback();
+//submit answer
+
+function answerSubmit(event) {
+    event.preventDefault();
+    let answer = $("input-[names-correctAnswer]:checked".val();
+    if (STORE.questions[STORE.correctAnswer].answer == correctAnswer) {
+        alert{ "You are right" };
+        STORE.score++;
+        //should iterate 
     }
-
+    else {
+        alert{ "You are wrong!" }
+        if (STORE.correctAnswer === STORE.question.length) {
+            alert { "You are at the end of the quiz! Thanks for Playing!" }
+        }
+        else {
+            renderQuiz();
+        }
+    }
 
 }
 
-$('main').on('submit', 'radio', checkSubmission);
 
-$('main').on('click', '.replayButton', replayQuiz);
-//moves to question from main and from feedback to question
-$('main').on('click', '.nextButton', generateQuestions);
+//item complete function
+function itemComplete() {
+    console.log($(this).parent());
+    alert("completed");
+    answerSubmit;
+}
+
+
+//event Handler for the submit button
+$('main').on('click', 'button', function()
+{
+    renderQuiz();
+});
+//event handlers on submitting the form go to next question
+$('main').on('submit', 'form', nextQuestion);
+
+
+
+
+
 
 $(main);
