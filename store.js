@@ -60,6 +60,8 @@ const STORE = {
   ],
   quizStarted: false,
   questionNumber: 0,
-  score: 0
+  score: 0,
+  wrong: 0,
+  right: 0
 }
 
