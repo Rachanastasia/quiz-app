@@ -57,7 +57,6 @@ const STORE = {
       ],
       correctAnswer: 'Database',
       }
-    },
   ],
   quizStarted: false,
   questionNumber: 0,
