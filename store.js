@@ -13,12 +13,7 @@ const STORE = {
         'Hyper Tone Markup Language',
         'Hyper Text Markup Language'
       ],
-      correctAnswer: 'Hyper Text Markup Language',
-      //remove and simplify
-      variables: {
-        name: 'html',
-        value: ['oneFalse', 'twoFalse', 'threeFalse', 'fourTrue']
-      }
+      correctAnswer: 'Hyper Text Markup Language'
 
     },
     {
@@ -29,12 +24,7 @@ const STORE = {
         'Javascript Library',
         'Function'
       ],
-      correctAnswer: 'Javascript Library',
-      variables: {
-        name: 'jquery',
-        value: ['oneFalse', 'twoFalse', 'threeTrue', 'fourFalse']
-
-      }
+      correctAnswer: 'Javascript Library'
     },
     {
       question: 'What is OOP?',
@@ -44,11 +34,7 @@ const STORE = {
         "Object Oriented Programming",
         "Open Objective Parameter"
       ],
-      correctAnswer: 'Object Oriented Programming',
-      variables: {
-        name: 'oop',
-        value: ['oneFalse', 'twoFalse', 'threeFalse', 'fourTrue']
-      }
+      correctAnswer: 'Object Oriented Programming'
     },
     {
       question: "What type of programming language is Javascript?",
@@ -58,12 +44,7 @@ const STORE = {
         "Object Oriented",
         "Database"
       ],
-      correctAnswer: 'Object Oriented',
-      variables: {
-        name: 'js',
-        value: ['oneFalse', 'twoFalse', 'threeFalse', 'fourTrue']
-
-      }
+      correctAnswer: 'Object Oriented'
     },
     {
       question: "What type of programming language is Python?",
@@ -75,12 +56,8 @@ const STORE = {
 
       ],
       correctAnswer: 'Database',
-      variables: {
-        name: 'python',
-        value: ['oneTrue', 'twoFalse', 'threeFalse', 'fourFalse']
-
       }
-    }
+    },
   ],
   quizStarted: false,
   questionNumber: 0,

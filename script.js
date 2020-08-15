@@ -1,169 +1,117 @@
 'use strict';
-//function start
-//function submit
-//generate question
-//generate feedback
-//render feedback
-//next flips back to false
 
-let i = 0;
-
-//moves the iterator with event handler to each slide
-//returns generated html from page
-function renderQuiz() {
-    //should be rendering function if called next
-    //within elseif 
-    i++;
-    if (i > 6){
-        i=0;
-        }
+//Generate the main page
+function generateMainPage() {
+    const mainHtml = ` <div class="startPage">
+        <h1> Are you ready for some Coding questions? Click the button to get started! </h1>
     
-    return generateHTML(); 
+        <div>
+            <button class="button main-button" type="button">Start</button>
+        </div>
+</div>`;
+renderQuiz(mainHtml);
+STORE.quizStarted = true;
 }
 
 
+//Generate the questions
+function nextQuestion() {
+    let questionNumber = STORE.questionNumber;
+    let question = STORE.questions[questionNumber];
 
-//gets button and header and content data
-//calls createButton() & createContent
-//generates html to render
-function generateHTML(){
-    let currentButton = createButton(STORE[i].button, STORE[i].buttonType);
-    let currentHeader = createHeader(STORE[i].heading);
-    let currentContent = createContent(STORE[i].content);
+    if (questionNumber === 5) {
+           return endOfGame();
+        }
 
-    let renderedHTML = 
-    `<div class="header">${currentHeader}</div>
-    <div class="content">${currentContent}</div>
-    <div class="button">${currentButton}</div>
-    <div class="footer"></div>`;
-//footer should contain 
-//question x/5
-//current score
-
-//generate start screen
-//generate questions
-//generate feedback
-
-
-//render store.started === true generate first quiz
-//if question number is less that, generate html string
-
-    $('main').html(renderedHTML);
-
-}
-
-function createButton(button, buttonType){
-    return `<button type="${buttonType}">${button}</button>`;
-}
-
-function createHeader(){
-    //THIS IS NOT WORKING!!!!!!!!!!!!
-    let current = STORE[i];
-    if(current.index !== 0 || 6){
-        return `<h2>${current.heading}</h2>`;
-    } else {
-        return `<h1>${current.heading}</h1>`;
-    }
-}
-
-
-//give STORE[i].content html formatting to become valid content
-function createContent() {
-    let current = STORE[i].content;
-    if (current === ''){
-        return current;
-
-    } else if (typeof current === 'string'){
-        return `<h3>${current}</h3>`;
-
-    } else if (typeof current === 'object'){
+        const questionNumberHtml = `<div class='number'>${questionNumber}/5`;
         
-        return buildQuiz(current);
+
+        const questionHtml = `<div class ="box"> 
+            <h3 class= "question"> ${question.question} </h3>
+        <form class="form">
+          <input type="radio" id="ans1" name="answers" value="${question.answers[0]}">
+          <label for="ans1">${question.answers[0]}</label><br>
+          <input type="radio" id="ans2" name="answers" value="${question.answers[1]}">
+          <label for="ans2">${question.answers[1]}</label>
+          <input type="radio" id="ans3" name="answers" value="${question.answers[2]}">
+          <label for="ans3">${question.answers[2]}</label>
+          <input type="radio" id="ans4" name="answers" value="${question.answers[3]}">
+          <label for="ans4">${question.answers[3]}</label>
+          </br> <button type="submit" id="submit">Submit</button>
+    </form>
+    </div>`;
+
+    renderQuiz(questionHtml);
+}
+
+function playAgain(event){
+  STORE.quizStarted = false;
+  generateMainPage();
+
+}
+//function that contains the HTML this should show the questions on the page
+function endOfGame() {
+          //set up event listener to call
+          //render main page
+  const endHtml = `<div class = "endofGame">
+                    <h1> End of quiz!</h1>
+                        <h3>You got ${STORE.score} correct!</h3>
+                        <button class="button main-button play-again" type="button">Play again</button>
+        </div >`;    
+        renderQuiz(endHtml);
+        
+}
+
+
+
+//render the page
+function renderQuiz(html) {
+    $("main").html(html)
+}
+
+
+//main function
+function main() {
+    generateMainPage();
+}
+
+//submit answer
+
+function answerSubmit(event) {
+    event.preventDefault();
+    let answer = $("input[names=correctAnswer]:checked").val();
+    if (STORE.questions[STORE.questionNumber].correctAnswer == answer) {
+        alert("You are right");
+        STORE.score++;
+        //should iterate 
+    }
+    else {
+        alert("You are wrong!");   
     }
 
-}
-
-function buildQuiz(){
-let currentQuestion = STORE[i].content.map(function(obj){
-    return buildRadioBtn(obj);
-});
-//removes commas from array
-let currentString = currentQuestion.join('');
-return `<form id="radioButton">${currentString}</form>`;
-
+    STORE.questionNumber++;
+    console.log(STORE.score);
+    nextQuestion();
 }
 
 
-function buildRadioBtn(obj){
-    return `<div class="answer">
-    <input type="radio" name="${STORE[i].name}" value="${obj.value}">
-    <label for="WHAT SHOULD I PUT HERE">${obj.answer}</label><br>
-    </div>`;
+//item complete function
+function itemComplete() {
+    console.log($(this).parent());
+    alert("completed");
+    answerSubmit;
 }
 
 
+//event Handler for the submit button
+$('main').on('click', 'button', nextQuestion);
+//event handlers on submitting the form go to next question
+$('main').on('click', '#submit', answerSubmit);
+
+$('main').on('click', '.play-again', playAgain);
 
 
-//call after store was manipulated
-//to reflect change on the screen
-//how to we get the 
-
-  generateHTML(STORE[i]);
-}
 
 
-
-//handle start with jquery
-//hand start with main
-//call render after store.started 
-//incriment score
-//incriment question number
-//RETURN STRING USED FOR RENDER
 
 $(main);
-
-
-/*const STORE = {
-  questions: [ 
-    { question: 'What is this?", answers: [ 'a','b','c','d' ], correct: 'b' }
-  ],
-  quizStarted: false,
-  questionNumber: 0,
-  score: 0
-}
-Alex CumboAlex Cumbo3:41 PM
-function handleStart() {
-  $('main').on('click', '#startBtn', function() {
-  // call the render function after, flipping STORE.quizStarted to `true`;
-  });
-}
-function main() {
-  handleStart();
-  handleSubmit();
-  handleNext();
-  ...
-  render();
-}
-
-$(main);
-Alex CumboAlex Cumbo3:53 PM
-if( STORE.quizStarted === false ) {
-  // call the generateStartScreenHTML
-} else if( STORE.questionNumber < STORE.questions.length - 1) {
-  // if you're going with immediate feedback:
-  if( STORE.giveFeedback ) {
-    // call the feedbackGenerationFunction
-  } else {
-  // call the generateNextQuestion function
-} else {
-  // call the endScoreResult function
-function render() {
-  let html = '';
- // ... if else
- // according to which function was called:
-  html = generateStartScreen();
-
- $( 'main' ).html( html );
-}
-
-}*/
