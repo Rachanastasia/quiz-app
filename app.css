@@ -12,15 +12,12 @@ ctrl + shift + l*/
     box-sizing: border-box;
 }
 body{
-    font-family: 'Anonymous Pro', 'roboto', sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    flex-direction: column;
+    
     padding: 0;
     margin: 0;
+    font-family: 'Anonymous Pro', 'roboto', sans-serif;
+    width: 100vw;
     background-color: yellowgreen;
-    font-weight: 300;
     width: 100vw;
     height: 100vh;
     
@@ -29,30 +26,35 @@ body{
 main{
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
+    justify-content: space-evenly;
     align-items: flex-start;
     background-color: yellowgreen;
     height: 80vh;
     text-align: left;
-    padding: 10vh 0;
-    margin: 10vh;
+    margin: 0 5vh;
 }
 
 main > *{
-    padding-left: 1vw;
+    padding-left: 2vw;
 }
 
 main .answer{
     padding-bottom: 20px;
 }
 
-h1, h2{
-    font-size: 10vw;
+main h1{
+    font-size: 4vw;
 }
 
-main .button{
-    margin-top: 2vh;
+main label{
+    font-size: 1em;
 }
+
+main h3{
+    font-size: 1.2em;
+    color: red;
+}
+
 
 main button {
     width: 200px;
@@ -63,20 +65,34 @@ main button {
     outline: none;
     text-align: center;
     font-weight: bold;
+    margin: 5vh 0;
+    
+}
+
+.main button{
+    height: 75px;
+    width: 300px;
+    font-size: 1.2em;
+    color: red;
 }
 
 main button:active{
     border: 1px solid #25090F;
 }
 
-.heading{
-    padding: 1vw;
-    margin: 1vw;
+
+
+main .question-score{
+    align-self: center;
+    margin-bottom: 3vh;
 }
 
-
-
-
+html form{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+}
 
 
 
@@ -89,18 +105,35 @@ main button:active{
 @media all and (min-width: 600px){
     main{
         padding-top: 0;
+        margin-top: 0;
+        height: 90vh;
+        margin-left: 5vw;
+        padding: 8vh 0;
     }
-    main h2{
-        font-size: 5vw;
+   main h1{
+        font-size: 6vw;
     }
-
 
     main h3{
-        font-size: 2vw;
+        font-size: 5vh;
     }
 
+    main label{
+        font-size: 4vh;
+    }
+
+    
+
+    main button{
+        margin-top: 9vh;
+    }
+/*
+    main h3{
+        font-size: 2vw;
+    }*/
+
     main > *{
-        padding-left: 5vw;
+        padding-left: 6vw;
     }
 
 }

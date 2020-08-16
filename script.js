@@ -2,14 +2,12 @@
 
 //Generate main page 
 function generateMainPage() {
-    const mainHtml = ` <div class="startPage">
-        <h1> Are you ready for some Coding questions? Click the button to get started! </h1>
-    
-        <div>
-            <button class="button main-button" type="button">Start</button>
-        </div>
-</div>`;
-renderQuiz(mainHtml);
+    const h1 = '<h1>Are you ready for some coding questions?</h1>';
+    const h3 = '<h3>Click the button to get started</h3>';
+    const button = '<button class="button start" type="button">Start</button>';
+
+    const mainHtml = `${h1}${h3}${button}`;
+    renderQuiz(mainHtml);
 STORE.quizStarted = true;
 }
 
@@ -27,7 +25,7 @@ function nextQuestion() {
         const trackScore =`<div class='trackScoreHtml'>${STORE.score}/${questionNumber} correct</div>
         <div class='trackScoreHtml'>${numberWrong}/${questionNumber} wrong</div>`;
 
-        const questionHtml = `<div class ="box"> 
+        const questionHtml = `<div class ="question"> 
             <h3 class= "question"> ${question.question} </h3>
         <form class="form" >
           <div class="radioButton">
@@ -58,7 +56,7 @@ function nextQuestion() {
 function endOfGame() {
           //set up event listener to call
           //render main page
-  const endHtml = `<div class = "endofGame">
+  const endHtml = `<div class = "endofGame main">
                     <h1> End of quiz!</h1>
                         <h3>You got ${STORE.score} correct!</h3>
                         <button class="button main-button play-again" type="button">Play again</button>
@@ -85,11 +83,6 @@ function renderQuiz(html) {
     $("main").html(html)
 }
 
-
-//main function
-function main() {
-    generateMainPage();
-}
 
 function correct(){
   let numberWrong = STORE.wrong;
@@ -146,11 +139,8 @@ function answerSubmit(event) {
 }
 
 
-//item complete function
-function itemComplete() {
-    console.log($(this).parent());
-    alert("completed");
-    answerSubmit;
+function main() {
+  generateMainPage();
 }
 
 
@@ -195,6 +185,7 @@ function nextQuestion() {
         const questionNumberHtml = `<div class='questionNumber'>Question ${questionNumber + 1}/5</div>`
         const trackScore =`<div class='trackScoreHtml'>${STORE.score}/${questionNumber} correct</div>
         <div class='trackScoreHtml'>${numberWrong}/${questionNumber} wrong</div>`;
+        const questionAndScore = `<div class = 'question-score'>${questionNumberHtml}${trackScore}</div>`
 
         const questionHtml = `<div class ="box"> 
             <h3 class= "question"> ${question.question} </h3>
@@ -220,7 +211,7 @@ function nextQuestion() {
     </form>
     </div>`;
 
-    renderQuiz(`${questionNumberHtml}${trackScore}${questionHtml}`);
+    renderQuiz(`${questionAndScore}${questionHtml}`);
 }
 
 //function that contains the HTML this should show the questions on the page
@@ -265,13 +256,14 @@ function correct(){
   const questionNumberHtml = `<div class='questionNumber'>Question ${STORE.questionNumber}/5</div>`
   const trackScore =`<div class='trackScoreHtml'>${STORE.score}/${STORE.questionNumber} correct</div>
   <div class='trackScoreHtml'>${numberWrong}/${STORE.questionNumber} wrong</div>`;
-const button = `<div>
+  const questionAndScore = `<div class = 'question-score'>${questionNumberHtml}${trackScore}</div>`
+  const button = `<div>
             <button class="button next-button" type="button">Next Question</button>
         </div>`
 
 
 
-  const correctHtml = `${questionNumberHtml}${trackScore}<h2>That's correct!</h2>${button}`;
+  const correctHtml = `${questionAndScore}<h2>That's correct!</h2>${button}`;
 
   renderQuiz(correctHtml);
 }
@@ -282,12 +274,14 @@ function wrong(){
   const questionNumberHtml = `<div class='questionNumber'>Question ${STORE.questionNumber}/5</div>`
   const trackScore =`<div class='trackScoreHtml'>${STORE.score}/${STORE.questionNumber} correct</div>
   <div class='trackScoreHtml'>${numberWrong}/${STORE.questionNumber} wrong</div>`;
+  const questionAndScore = `<div class = 'question-score'>${questionNumberHtml}${trackScore}</div>`
+  
   const correctAnswer = STORE.questions[STORE.questionNumber].correctAnswer;
   const button = `<div>
             <button class="button next-button" type="button">Next Question</button>
         </div>`
 
-  const wrongHtml = `${questionNumberHtml}${trackScore}<h2>That's the wrong answer</h2><div class = 'correctAnswer'><h4>The correct answer is:</h4>${correctAnswer}${button}</div>`;
+  const wrongHtml = `${questionAndScore}<h2>That's the wrong answer</h2><div class = 'correctAnswer'><h4>The correct answer is:</h4>${correctAnswer}${button}</div>`;
   
   
   renderQuiz(wrongHtml);
@@ -325,7 +319,7 @@ function itemComplete() {
 
 //event Handler for the submit button
 $('main').on('click', '.button', nextQuestion);
-//event handlers on submitting the form go to next question
+
 $('main').on('submit', 'input', answerSubmit);
 
 $('main').on('click', '.checkAnswer', answerSubmit);

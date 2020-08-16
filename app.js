@@ -1,201 +1,333 @@
 'use strict';
 
-/*TEMPLATE GENERATION FUNCTIONS*/
+//Generate main page 
+function generateMain() {
+    const h1 = '<h1>Are you ready for some coding questions?</h1>';
+    const h3 = '<h3>Click the button to get started</h3>';
+    const button = '<button class="button start" type="button">Start</button>';
 
-
-function generateStartScreen() {
-    let header = '<h1 class="startScreenHeader">Are you ready to answer some questions about coding?</h1>';
-    let startButton = {
-        class: 'nextButton',
-        type: 'button',
-        text: 'Start Quiz'
-    }
-
-    let button = makeButton(startButton);
-
-    let startScreenHtml = `${header}${button}`;
-    
-
-    STORE.quizStarted = true;
-
-    render(startScreenHtml);
+    const mainHtml = `${h1}${h3}${button}`;
+    renderQuiz(mainHtml);
+STORE.quizStarted = true;
 }
 
 
-function generateQuestions() {
+//Generate the questions
+function nextQuestion() {
+    let questionNumber = STORE.questionNumber
+    let question = STORE.questions[questionNumber];
 
-    let num = STORE.questionNumber;
+    if (questionNumber >= 5) {
+           return endOfGame()
+        }
+        let numberWrong = STORE.wrong;
+        const questionNumberHtml = `<div class='questionNumber'>Question ${questionNumber + 1}/5</div>`
+        const trackScore =`<div class='trackScoreHtml'>${STORE.score}/${questionNumber} correct</div>
+        <div class='trackScoreHtml'>${numberWrong}/${questionNumber} wrong</div>`;
 
+        const questionHtml = `<div class ="question"> 
+            <h3 class= "question"> ${question.question} </h3>
+        <form class="form" >
+          <div class="radioButton">
+            <input type="radio" id="ans1" name="answers" value="${question.answers[0]}">
+            <label for="ans1">${question.answers[0]}</label><br>
+          </div>
+          <div class="radioButton">
+            <input type="radio" id="ans2" name="answers" value="${question.answers[1]}">
+            <label for="ans2">${question.answers[1]}</label>
+          </div>
+          <div class="radioButton">
+            <input type="radio" id="ans3" name="answers" value="${question.answers[2]}">
+            <label for="ans3">${question.answers[2]}</label>
+          </div>
+          <div>
+            <input type="radio" id="ans4" name="answers" value="${question.answers[3]}">
+            <label for="ans4">${question.answers[3]}</label></br> 
+          </div><div>
+          <button class="checkAnswer" type="submit" id="submit">submit</button>
+      </div>
+    </form>
+    </div>`;
 
-    let question = STORE.questions[num].question;
-    let answers = STORE.questions[num].answers;
-    let name = STORE.questions[num].variables.name;
-    let values = STORE.questions[num].variables.value;
+    renderQuiz(`${questionNumberHtml}${trackScore}${questionHtml}`);
+}
 
-    let radioButtons = [];
-//variable for each radio button
-//use aarons next question
-    for (let i=0; i<answers.length; i++){
-        let radio = `<input type="radio" name="answers" value='${values[i]}'>
-        <label for="${values[i]}">${answers[i]}</label><br>`;
-
-        radioButtons.push(radio);
-    }
-
-    let allRadioString = radioButtons.join('');
-
-    let submitButton = {
-        class: 'submitButton',
-        type: 'submit',
-        text: 'submit'
-    };
-
-    let buttonSubmit = makeButton(submitButton);
-
-    let formattedHTML = `<h3>${question}</h3><form id="${name}">${allRadioString}${buttonSubmit}</form>`;
-
-   return render(formattedHTML);
-
+//function that contains the HTML this should show the questions on the page
+function endOfGame() {
+          //set up event listener to call
+          //render main page
+  const endHtml = `<div class = "endofGame main">
+                    <h1> End of quiz!</h1>
+                        <h3>You got ${STORE.score} correct!</h3>
+                        <button class="button main-button play-again" type="button">Play again</button>
+        </div >`;    
+        renderQuiz(endHtml);
+        
 }
 
 
-
-//how do I get the page to re-render immediate feedback on wether answer was right or wrong
-
-function generateCorrect() {
-    let heading = "<h1>That's right!</h1>";
-    let currentScore = `<h3 class = "score">Your current score is ${STORE.score} / ${STORE.questionNumber}</h3>`;
-    let button = {
-        class: 'nextButton',
-        type: 'button',
-        text: 'Next'
-    }
-
-    let nextButton = makeButton(button);
-
-    let correctHTML = '';
-    
-    return render(`${heading}${currentScore}${nextButton}`);
-
-
-}
-
-function generateIncorrect() {
-    let heading = "<h1>That's not right</h1>";
-    let correctAnswer = `<h3 class='corrected'>The correct answer is: ${STORE.questions[STORE.questionNumber].correctAnswer}`;
-    let currentScore = `<h3 class = "score">Your current score is ${STORE.score} / ${STORE.questionNumber}</h3>`;
-
-
-}
-
-
-//change radio button name for answers for all 
-function generateFeedback() {
-    let header = '<h1 class="feedBackHeader">End of Quiz</h1>';
-    let startButton = {
-        class: 'replayButton',
-        type: 'button',
-        text: 'Play Again?'
-    };
-
-    let submitButton = {
-        class: 'submitButton',
-        type: 'submit',
-        text: submit
-    };
-
-    let buttonReplay = makeButton(startButton);
-    let buttonSubmit = makeButton(submitButton);
-    let content = `<h3>You got ${STORE.score} / ${STORE.questionNumber} correct!</h3>`;
-    let feedbackArr = [];
-
-    let feedbackHTML = feedbackArr.push(header, content, buttonReplay).join(',');
-
-    render(feedBackHTML);
-
-}
-
-
-function makeButton(obj) {
-    return `<button class= '${obj.class}' type = '${obj.type}'>${obj.text}</button>`;
+function playAgain(event){
+  STORE.quizStarted = false;
+  STORE.score = 0;
+  STORE.questionNumber = 0;
+  STORE.wrong = 0;
+  STORE.right = 0;
+  generateMainPage();
 
 }
 
 
 
-
-
-
-
-
-
-/*RENDER*/
-//renders html to DOM based on what is put into function
-function render(str) {
-   return $('main').html(str);
+//render the page
+function renderQuiz(html) {
+    $("main").html(html)
 }
 
 
+function correct(){
+  let numberWrong = STORE.wrong;
+  const questionNumberHtml = `<div class='questionNumber'>Question ${STORE.questionNumber}/5</div>`
+  const trackScore =`<div class='trackScoreHtml'>${STORE.score}/${STORE.questionNumber} correct</div>
+  <div class='trackScoreHtml'>${numberWrong}/${STORE.questionNumber} wrong</div>`;
+const button = `<div>
+            <button class="button next-button" type="button">Next Question</button>
+        </div>`
 
-/* EVENT HANDLER FUNCTIONS*/
 
-//write event that flips state of STORE.quizStarted to false
-function replayQuiz(event) {
-    return STORE.quizStarted = 'false';
+
+  const correctHtml = `${questionNumberHtml}${trackScore}<h2>That's correct!</h2>${button}`;
+
+  renderQuiz(correctHtml);
 }
 
+function wrong(){
 
-function checkSubmission(event) {
+  let numberWrong = STORE.wrong;
+  const questionNumberHtml = `<div class='questionNumber'>Question ${STORE.questionNumber}/5</div>`
+  const trackScore =`<div class='trackScoreHtml'>${STORE.score}/${STORE.questionNumber} correct</div>
+  <div class='trackScoreHtml'>${numberWrong}/${STORE.questionNumber} wrong</div>`;
+  const correctAnswer = STORE.questions[STORE.questionNumber].correctAnswer;
+  const button = `<div>
+            <button class="button next-button" type="button">Next Question</button>
+        </div>`
+
+  const wrongHtml = `${questionNumberHtml}${trackScore}<h2>That's the wrong answer</h2><div class = 'correctAnswer'><h4>The correct answer is:</h4>${correctAnswer}${button}</div>`;
+  
+  
+  renderQuiz(wrongHtml);
+}
+
+//submit answer
+function answerSubmit(event) {
     event.preventDefault();
-    console.log('hello');
-    let num = STORE.questionNumber;
-    let name = STORE.questions[num].variables.name;
-    let values = STORE.questions[num].variables.value;
-    let answer = $(`input[name=answers]:checked`).val();
-console.log(answer);
-    if (answer === STORE.questions[num].correctAnswer) {
-        STORE.score++;
-        return generateCorrect();
-    } else {
-        return generateIncorrect();
+    let answer = $("input[name=answers]:checked", ).val();
+    if (!answer){
+      return nextQuestion();
     }
+    if (answer === STORE.questions[STORE.questionNumber].correctAnswer) {
+        STORE.score++;
+        STORE.right++;
+        correct();
+        //should iterate 
+    }else if (STORE.questions[STORE.questionNumber].correctAnswer) {
+      STORE.wrong++;
+      wrong();
+      }
 
+    STORE.questionNumber++;
+    console.log(STORE.score);
 }
-
-function validateNextButton() {
-    //pass in answer set
-    //if none of the answers are checked 
-    //if quizStarted === true && questionNumber === 1-5,
-    //let answer = $("input-[names-correctAnswer]:checked".val();'
-    //forEach answer in array of formatted answers, 
-    //if $input-[names])
-    //
-
-}
-
-
 
 
 function main() {
+  generateMain();
+}
 
-    if (STORE.quizStarted == false) {
-        generateStartScreen();
+
+//event Handler for the submit button
+$('main').on('click', '.button', nextQuestion);
+//event handlers on submitting the form go to next question
+$('main').on('submit', 'input', answerSubmit);
+
+$('main').on('click', '.checkAnswer', answerSubmit);
+
+$('main').on('click', '.play-again', playAgain);
+
+
+
+
+
+$(main);'use strict';
+
+//Generate main page 
+function generateMainPage() {
+    const mainHtml = ` <div class="startPage">
+        <h1> Are you ready for some Coding questions? Click the button to get started! </h1>
+    
+        <div>
+            <button class="button main-button" type="button">Start</button>
+        </div>
+</div>`;
+renderQuiz(mainHtml);
+STORE.quizStarted = true;
+}
+
+
+//Generate the questions
+function nextQuestion() {
+    let questionNumber = STORE.questionNumber
+    let question = STORE.questions[questionNumber];
+
+    if (questionNumber >= 5) {
+           return endOfGame()
+        }
+        let numberWrong = STORE.wrong;
+        const questionNumberHtml = `<div class='questionNumber'>Question ${questionNumber + 1}/5</div>`
+        const trackScore =`<div class='trackScoreHtml'>${STORE.score}/${questionNumber} correct</div>
+        <div class='trackScoreHtml'>${numberWrong}/${questionNumber} wrong</div>`;
+        const questionAndScore = `<div class = 'question-score'>${questionNumberHtml}${trackScore}</div>`
+
+        const questionHtml = `<div class ="box"> 
+            <h3 class= "question"> ${question.question} </h3>
+        <form class="form" >
+          <div class="radioButton">
+            <input type="radio" id="ans1" name="answers" value="${question.answers[0]}">
+            <label for="ans1">${question.answers[0]}</label><br>
+          </div>
+          <div class="radioButton">
+            <input type="radio" id="ans2" name="answers" value="${question.answers[1]}">
+            <label for="ans2">${question.answers[1]}</label>
+          </div>
+          <div class="radioButton">
+            <input type="radio" id="ans3" name="answers" value="${question.answers[2]}">
+            <label for="ans3">${question.answers[2]}</label>
+          </div>
+          <div>
+            <input type="radio" id="ans4" name="answers" value="${question.answers[3]}">
+            <label for="ans4">${question.answers[3]}</label></br> 
+          </div><div>
+          <button class="checkAnswer" type="submit" id="submit">submit</button>
+      </div>
+    </form>
+    </div>`;
+
+    renderQuiz(`${questionAndScore}${questionHtml}`);
+}
+
+//function that contains the HTML this should show the questions on the page
+function endOfGame() {
+          //set up event listener to call
+          //render main page
+  const endHtml = `<div class = "endofGame">
+                    <h1> End of quiz!</h1>
+                        <h3>You got ${STORE.score} correct!</h3>
+                        <button class="button main-button play-again" type="button">Play again</button>
+        </div >`;    
+        renderQuiz(endHtml);
         
-    } else if (STORE.questionNumber <= 5) {
-        generateQuestions();
-    } else {
-        generateFeedback();
-    }
+}
 
+
+function playAgain(event){
+  STORE.quizStarted = false;
+  STORE.score = 0;
+  STORE.questionNumber = 0;
+  STORE.wrong = 0;
+  STORE.right = 0;
+  generateMainPage();
 
 }
 
-//$('main').on('submit', 'radio', checkSubmission);
-//click event tied to button 
-$('main').on('click', 'form', checkSubmission)
 
-$('main').on('click', '.replayButton', replayQuiz);
-//moves to question from main and from feedback to question
-$('main').on('click', '.nextButton', generateQuestions);
+
+//render the page
+function renderQuiz(html) {
+    $("main").html(html)
+}
+
+
+//main function
+function main() {
+    generateMainPage();
+}
+
+function correct(){
+  let numberWrong = STORE.wrong;
+  const questionNumberHtml = `<div class='questionNumber'>Question ${STORE.questionNumber}/5</div>`
+  const trackScore =`<div class='trackScoreHtml'>${STORE.score}/${STORE.questionNumber} correct</div>
+  <div class='trackScoreHtml'>${numberWrong}/${STORE.questionNumber} wrong</div>`;
+  const questionAndScore = `<div class = 'question-score'>${questionNumberHtml}${trackScore}</div>`
+  const button = `<div>
+            <button class="button next-button" type="button">Next Question</button>
+        </div>`
+
+
+
+  const correctHtml = `${questionAndScore}<h2>That's correct!</h2>${button}`;
+
+  renderQuiz(correctHtml);
+}
+
+function wrong(){
+
+  let numberWrong = STORE.wrong;
+  const questionNumberHtml = `<div class='questionNumber'>Question ${STORE.questionNumber}/5</div>`
+  const trackScore =`<div class='trackScoreHtml'>${STORE.score}/${STORE.questionNumber} correct</div>
+  <div class='trackScoreHtml'>${numberWrong}/${STORE.questionNumber} wrong</div>`;
+  const questionAndScore = `<div class = 'question-score'>${questionNumberHtml}${trackScore}</div>`
+  
+  const correctAnswer = STORE.questions[STORE.questionNumber].correctAnswer;
+  const button = `<div>
+            <button class="button next-button" type="button">Next Question</button>
+        </div>`
+
+  const wrongHtml = `${questionAndScore}<h2>That's the wrong answer</h2><div class = 'correctAnswer'><h4>The correct answer is:</h4>${correctAnswer}${button}</div>`;
+  
+  
+  renderQuiz(wrongHtml);
+}
+
+//submit answer
+function answerSubmit(event) {
+    event.preventDefault();
+    let answer = $("input[name=answers]:checked", ).val();
+    if (!answer){
+      return nextQuestion();
+    }
+    if (answer === STORE.questions[STORE.questionNumber].correctAnswer) {
+        STORE.score++;
+        STORE.right++;
+        correct();
+        //should iterate 
+    }else if (STORE.questions[STORE.questionNumber].correctAnswer) {
+      STORE.wrong++;
+      wrong();
+      }
+
+    STORE.questionNumber++;
+    console.log(STORE.score);
+}
+
+
+//item complete function
+function itemComplete() {
+    console.log($(this).parent());
+    alert("completed");
+    answerSubmit;
+}
+
+
+//event Handler for the submit button
+$('main').on('click', '.button', nextQuestion);
+
+$('main').on('submit', 'input', answerSubmit);
+
+$('main').on('click', '.checkAnswer', answerSubmit);
+
+$('main').on('click', '.play-again', playAgain);
+
+
+
+
 
 $(main);
