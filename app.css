@@ -85,6 +85,7 @@ main button:active{
 main .question-score{
     align-self: center;
     margin-bottom: 3vh;
+    color: 
 }
 
 html form{
@@ -111,6 +112,7 @@ html form{
         padding: 8vh 0;
     }
    main h1{
+        color: red;
         font-size: 6vw;
     }
 

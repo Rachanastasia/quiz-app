@@ -91,8 +91,8 @@ function correct(){
   let numberWrong = STORE.wrong;
   let questionNumber = STORE.questionNumber + 1;
   const questionNumberHtml = `<div class='questionNumber'>Question ${questionNumber}/5</div>`
-  const trackScore =`<div class='trackScoreHtml'>${STORE.score}/${STORE.questionNumber} correct</div>
-  <div class='trackScoreHtml'>${numberWrong}/${STORE.questionNumber} wrong</div>`;
+  const trackScore =`<div class='trackScoreHtml'>${STORE.score}/${questionNumber} correct</div>
+  <div class='trackScoreHtml'>${numberWrong}/${questionNumber} wrong</div>`;
   const questionAndScore = `<div class = 'question-score'>${questionNumberHtml}${trackScore}</div>`
   const button = `
             <button class="button next-button" type="button">Next Question</button>`
@@ -105,18 +105,20 @@ function correct(){
 }
 
 function wrong(){
-
+    
   let numberWrong = STORE.wrong;
-  const questionNumberHtml = `<div class='questionNumber'>Question ${STORE.questionNumber}/5</div>`
-  const trackScore =`<div class='trackScoreHtml'>${STORE.score}/${STORE.questionNumber} correct</div>
-  <div class='trackScoreHtml'>${numberWrong}/${STORE.questionNumber} wrong</div>`;
+  let questionNumber = STORE.questionNumber + 1;
+  console.log(questionNumber);
+  const questionNumberHtml = `<div class='questionNumber'>Question ${questionNumber}/5</div>`
+  const trackScore =`<div class='trackScoreHtml'>${STORE.score}/${questionNumber} correct</div>
+  <div class='trackScoreHtml'>${numberWrong}/${questionNumber} wrong</div>`;
   const questionAndScore = `<div class = 'question-score'>${questionNumberHtml}${trackScore}</div>`
   
   const correctAnswer = STORE.questions[STORE.questionNumber].correctAnswer;
   const button = `
             <button class="button next-button" type="button">Next Question</button>`
 
-  const wrongHtml = `${questionAndScore}<h2>That's the wrong answer</h2><div class = 'correctAnswer'><h4>The correct answer is:</h4>${correctAnswer}${button}</div>`;
+  const wrongHtml = `${questionAndScore}<h2>That's the wrong answer</h2><div class = 'correctAnswer'><h4>The correct answer is:</h4><h4>${correctAnswer}</h4>${button}</div>`;
   
   
   renderQuiz(wrongHtml);
