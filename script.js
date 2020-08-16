@@ -1,15 +1,12 @@
 'use strict';
 
 //Generate main page 
-function generateMainPage() {
-    const h1 = '<h1>Are you ready for some coding questions?</h1>';
-    const h3 = '<h3>Click the button to get started</h3>';
-    const button = '<button class="button start" type="button">Start</button>';
+/*function generateMain() {
+    
 
-    const mainHtml = `${h1}${h3}${button}`;
-    renderQuiz(mainHtml);
-STORE.quizStarted = true;
-}
+    STORE.quizStarted = true;
+    
+}*/
 
 
 //Generate the questions
@@ -72,7 +69,7 @@ function playAgain(event){
   STORE.questionNumber = 0;
   STORE.wrong = 0;
   STORE.right = 0;
-  generateMainPage();
+  generateMain();
 
 }
 
@@ -140,7 +137,7 @@ function answerSubmit(event) {
 
 
 function main() {
-  generateMainPage();
+  //generateMain();
 }
 
 
@@ -161,14 +158,13 @@ $(main);'use strict';
 
 //Generate main page 
 function generateMainPage() {
-    const mainHtml = ` <div class="startPage">
-        <h1> Are you ready for some Coding questions? Click the button to get started! </h1>
-    
-        <div>
-            <button class="button main-button" type="button">Start</button>
-        </div>
-</div>`;
-renderQuiz(mainHtml);
+  const h1 = '<h1>Are you ready for some coding questions?</h1>';
+  const h3 = '<h3>Click the button to get started</h3>';
+  const button = '<button class="button start" type="button">Start</button>';
+
+  const html = `${h1}${h3}${button}`;
+  renderQuiz(html);
+
 STORE.quizStarted = true;
 }
 
@@ -246,10 +242,6 @@ function renderQuiz(html) {
 }
 
 
-//main function
-function main() {
-    generateMainPage();
-}
 
 function correct(){
   let numberWrong = STORE.wrong;
@@ -309,13 +301,10 @@ function answerSubmit(event) {
 }
 
 
-//item complete function
-function itemComplete() {
-    console.log($(this).parent());
-    alert("completed");
-    answerSubmit;
-}
 
+function main() {
+  generateMainPage();
+}
 
 //event Handler for the submit button
 $('main').on('click', '.button', nextQuestion);

@@ -11,6 +11,8 @@ body{
     display: flex;
     justify-content: center;
     align-items: center;
+    background-color: hsl(8, 6%, 20%);
+    color: hsl(127, 70%, 60%);
 }
 
 main{
@@ -18,7 +20,7 @@ main{
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-
+    text-align: center;
     padding: 1vh 1vw;
     margin: 3vh 2vw;
 }
@@ -29,13 +31,19 @@ main .box{
     justify-content: space-between; 
     align-items: center;
 }
+main form{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly; 
+    align-items: flex-start;
+}
 main h1{
     font-size: 2em;
-    color: red;
 }
 
 main h3{
     font-size: 1.4em;
+    color: hsl(127, 92%, 60%);
 }
 
 main button{
@@ -43,11 +51,16 @@ main button{
     height: 50px;
     border: 1px solid #25090F;
     background-color: #25090F;
-    color: #f2f2f2;
+    color: hsl(165, 70%, 70%);
     outline: none;
     text-align: center;
     font-weight: bold;
     margin-top: 4vh;
+    align-self: center;
+}
+
+main div form button{
+    align-self: center;
 }
 
 main button:active{
@@ -64,5 +77,21 @@ main .main-page{
 
 main .main-page > *{
     display: block;
+}
+
+main .question-score{
+    color: hsl(165, 70%, 70%);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+main div .questionNumber{
+    font-weight: bolder;
+}
+
+main .question-score >*{
+    padding: 1vh;
 }
 
