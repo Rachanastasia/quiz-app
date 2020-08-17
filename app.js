@@ -180,6 +180,7 @@ function main() {
 
 
 //event handlers for buttons and submitting answers
+
 $('main').on('click', '.button', nextQuestion);
 
 $('main').on('submit', 'input', answerSubmit);
@@ -189,5 +190,6 @@ $('main').on('click', '.checkAnswer', answerSubmit);
 $('main').on('click', '.play-again', playAgain);
 
 
+  // do your stuff here
 
 $(main);

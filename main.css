@@ -39,15 +39,15 @@ main form{
     font-size: 1.4em;
 }
 main h1{
-    font-size: 15vw;
+    font-size: 3em;
 }
 
 main h2{
-    font-size: 10vw;
+    font-size: 2.2em;
 }
 
 main h3{
-    font-size: 7vw;
+    font-size: 2.3;
     color: hsl(127, 92%, 60%);
 }
 
@@ -103,7 +103,7 @@ main .question-score >*{
 }
 
 
-@media all and (min-width: 750px){
+@media all and (min-width: 800px){
     main{
         padding: 1vh 1vw;
     margin: 1vh 1vw;
