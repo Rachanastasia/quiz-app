@@ -13,10 +13,18 @@ function generateMainPage() {
 }
 
 
+function generateTitle(){
+  const title = '<h3>Coding quiz</h3>';
+  return title;
+}
+
+
 
 
 //Generate the questions
 function nextQuestion() {
+  
+  let title = generateTitle();
 
   let questionNumber = STORE.questionNumber;
   let question = STORE.questions[questionNumber];
@@ -55,7 +63,7 @@ function nextQuestion() {
     </form>
     </div>`;
 
-  renderQuiz(`${questionAndScore}${questionHtml}`);
+  renderQuiz(`${title}${questionAndScore}${questionHtml}`);
 }
 
 
@@ -63,6 +71,7 @@ function nextQuestion() {
 
 //Run when user submits correct answer
 function correct() {
+  const title = generateTitle();
   let numberWrong = STORE.wrong;
   let questionNumber = STORE.questionNumber + 1;
 
@@ -74,7 +83,7 @@ function correct() {
 
   const button = '<button class="button next-button" type="button">Next Question</button>';
 
-  const correctHtml = `${questionAndScore}<h2>That's correct!</h2>${button}`;
+  const correctHtml = `${title}${questionAndScore}<h2>That's correct!</h2>${button}`;
 
   renderQuiz(correctHtml);
 }
@@ -84,6 +93,7 @@ function correct() {
 
 //Run when user submits wrong answer
 function wrong() {
+  const title = generateTitle();
   let numberWrong = STORE.wrong;
   let questionNumber = STORE.questionNumber + 1;
 
@@ -97,7 +107,7 @@ function wrong() {
 
   const button = '<button class="button next-button" type="button">Next Question</button>';
 
-  const wrongHtml = `${questionAndScore}<h2>That's the wrong answer</h2><div class = 'correctAnswer'><h4>The correct answer is:</h4><h4>${correctAnswer}</h4>${button}</div>`;
+  const wrongHtml = `${title}${questionAndScore}<h2>That's the wrong answer</h2><div class = 'correctAnswer'><h4>The correct answer is:</h4><h4>${correctAnswer}</h4>${button}</div>`;
 
   renderQuiz(wrongHtml);
 }
